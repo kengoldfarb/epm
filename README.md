@@ -1,8 +1,8 @@
-![EPM Logo](https://cdn.meem.wtf/epm-380x380.png)
+![EPM Logo](https://cdn.ken.codes/epm-800x450.jpg)
 
 # Ethereum Package Manager
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/meemproject/epm/tree/master.svg?style=svg&circle-token=bb0d522cfc34eda3129cfa2abbf758cd04590e5f)](https://dl.circleci.com/status-badge/redirect/gh/meemproject/epm/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kengoldfarb/epm/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kengoldfarb/epm/tree/master)
 
 ## [https://epm.wtf](https://epm.wtf)
 
@@ -11,8 +11,6 @@
 EPM lets you deploy and compose smart contracts. It leans heavily into providing functionality for [EIP-2535 Diamond Standard](https://eips.ethereum.org/EIPS/eip-2535) contracts.
 
 For a more detailed intro see [Introducing Ethereum Package Manager (EPM)](https://paragraph.xyz/@ken/ethereum-package-manager).
-
-Also, [check out the docs](https://docs.meem.wtf/meem-protocol/epm/ethereum-package-manager).
 
 # Installation
 
@@ -43,14 +41,8 @@ It's recommended you use [VSCode](https://code.visualstudio.com/) with these ext
 
 # Branches / Deployment
 
-[`dev`](https://github.com/meemproject/epm/tree/dev) is the main development branch. This is also the branch PRs should be submitted against.
-
-Once tested, code will be moved to [`stage`](https://github.com/meemproject/epm/tree/stage) and finally [`master`](https://github.com/meemproject/epm/tree/master).
+[`master`](https://github.com/kengoldfarb/epm/tree/master) is the main development branch. This is also the branch PRs should be submitted against.
 
 Each branch corresponds to an environment that will be automatically updated via CI:
-
-dev - [https://dev.epm.wtf](https://dev.epm.wtf)
-
-stage - [https://stage.epm.wtf](https://stage.epm.wtf)
 
 master - [https://epm.wtf](https://epm.wtf)
