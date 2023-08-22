@@ -1,14 +1,14 @@
-import { LoginState, useWallet } from '@meemproject/react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
+import { LoginState, useAuth } from '../contexts/AuthContext'
 
 export interface IProps {
 	children: React.ReactNode
 }
 
 export const App: React.FC<IProps> = ({ children }) => {
-	const { isConnected, loginState, connectWallet } = useWallet()
+	const { isConnected, loginState, connectWallet } = useAuth()
 	const router = useRouter()
 
 	useEffect(() => {

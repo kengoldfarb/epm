@@ -2,9 +2,10 @@ import log from '@kengoldfarb/log'
 import { Text, Button, Space, Textarea, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import React, { useEffect, useState } from 'react'
-import { WalletContractInstances } from '../../../generated/graphql'
+import { API } from '../../generated/api.generated'
+import { WalletContractInstances } from '../../generated/graphql'
+import { makeFetcher } from '../../lib/fetcher'
 
 export interface IProps {
 	walletContract?: WalletContractInstances
@@ -29,14 +30,14 @@ export const EditWalletContract: React.FC<IProps> = ({
 		try {
 			setIsLoading(true)
 			const updateWalletContractInstance = makeFetcher<
-				MeemAPI.v1.UpdateWalletContractInstance.IQueryParams,
-				MeemAPI.v1.UpdateWalletContractInstance.IRequestBody,
-				MeemAPI.v1.UpdateWalletContractInstance.IResponseBody
+				API.v1.UpdateWalletContractInstance.IQueryParams,
+				API.v1.UpdateWalletContractInstance.IRequestBody,
+				API.v1.UpdateWalletContractInstance.IResponseBody
 			>({
-				method: MeemAPI.v1.UpdateWalletContractInstance.method
+				method: API.v1.UpdateWalletContractInstance.method
 			})
 			await updateWalletContractInstance(
-				MeemAPI.v1.UpdateWalletContractInstance.path({
+				API.v1.UpdateWalletContractInstance.path({
 					contractInstanceId: walletContract?.ContractInstance?.id
 				}),
 				undefined,
@@ -93,7 +94,7 @@ export const EditWalletContract: React.FC<IProps> = ({
 				radius="lg"
 				size="md"
 				maxLength={140}
-				placeholder="Meem Permissions"
+				placeholder="Permissions"
 				required
 				{...getInputProps('name')}
 			/>

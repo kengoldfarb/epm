@@ -13,16 +13,17 @@ import {
 } from '@mantine/core'
 import { formList, useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { useMeemApollo } from '@meemproject/react'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { CirclePlus } from 'tabler-icons-react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { API } from '../../generated/api.generated'
 import {
 	Contracts,
 	SubGetContractsByIdSubscription
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import { SUB_GET_CONTRACTS_BY_ID } from '../../graphql/contracts'
+import { makeFetcher } from '../../lib/fetcher'
 import { Page } from '../../styles/Page'
 import { FacetList } from '../Atoms/FacetList'
 import {
@@ -40,7 +41,7 @@ const useStyles = createStyles(_theme => ({
 }))
 
 export const CreateBundleContainer: React.FC = () => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const router = useRouter()
 	const { classes } = useStyles()
 
@@ -122,15 +123,15 @@ export const CreateBundleContainer: React.FC = () => {
 			}
 
 			const createBundle = makeFetcher<
-				MeemAPI.v1.CreateBundle.IQueryParams,
-				MeemAPI.v1.CreateBundle.IRequestBody,
-				MeemAPI.v1.CreateBundle.IResponseBody
+				API.v1.CreateBundle.IQueryParams,
+				API.v1.CreateBundle.IRequestBody,
+				API.v1.CreateBundle.IResponseBody
 			>({
-				method: MeemAPI.v1.CreateBundle.method
+				method: API.v1.CreateBundle.method
 			})
 
 			const { bundleId } = await createBundle(
-				MeemAPI.v1.CreateBundle.path(),
+				API.v1.CreateBundle.path(),
 				undefined,
 				{
 					name: values.name,

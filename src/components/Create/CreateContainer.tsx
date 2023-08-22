@@ -12,9 +12,10 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { API } from '../../generated/api.generated'
+import { makeFetcher } from '../../lib/fetcher'
 import { Page } from '../../styles/Page'
 
 export const CreateContainer: React.FC = () => {
@@ -49,20 +50,20 @@ export const CreateContainer: React.FC = () => {
 					try {
 						setIsSubmitting(true)
 						const createContract = makeFetcher<
-							MeemAPI.v1.CreateContract.IQueryParams,
-							MeemAPI.v1.CreateContract.IRequestBody,
-							MeemAPI.v1.CreateContract.IResponseBody
+							API.v1.CreateContract.IQueryParams,
+							API.v1.CreateContract.IRequestBody,
+							API.v1.CreateContract.IResponseBody
 						>({
-							method: MeemAPI.v1.CreateContract.method
+							method: API.v1.CreateContract.method
 						})
 
 						const { contractId } = await createContract(
-							MeemAPI.v1.CreateContract.path(),
+							API.v1.CreateContract.path(),
 							undefined,
 							{
 								...values,
 								contractType:
-									values.contractType as MeemAPI.ContractType,
+									values.contractType as API.ContractType,
 								abi: JSON.parse(values.abi)
 							}
 						)
@@ -101,15 +102,15 @@ export const CreateContainer: React.FC = () => {
 					required
 					data={[
 						{
-							value: MeemAPI.ContractType.Regular,
+							value: API.ContractType.Regular,
 							label: 'Regular Contract'
 						},
 						{
-							value: MeemAPI.ContractType.DiamondProxy,
+							value: API.ContractType.DiamondProxy,
 							label: 'Diamond Proxy (EIP-2535)'
 						},
 						{
-							value: MeemAPI.ContractType.DiamondFacet,
+							value: API.ContractType.DiamondFacet,
 							label: 'Diamond Facet (EIP-2535)'
 						}
 					]}
@@ -121,7 +122,7 @@ export const CreateContainer: React.FC = () => {
 					radius="lg"
 					size="md"
 					maxLength={140}
-					placeholder="Meem Permissions"
+					placeholder="Permissions"
 					required
 					{...form.getInputProps('name')}
 				/>

@@ -8,11 +8,11 @@ import {
 	Title,
 	Space
 } from '@mantine/core'
-import { useWallet } from '@meemproject/react'
 import cx from 'classnames'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Contracts, SearchContractsQuery } from '../../../generated/graphql'
+import { useAuth } from '../../contexts/AuthContext'
+import { Contracts, SearchContractsQuery } from '../../generated/graphql'
 import { ArrayElement } from '../../lib/utils'
 import { DeployContract } from '../Contracts/DeployContract'
 import { Address } from './Address'
@@ -54,7 +54,7 @@ export const ContractCard: React.FC<IProps> = ({
 }) => {
 	const { classes } = useStyles()
 
-	const { chainId } = useWallet()
+	const { chainId } = useAuth()
 
 	const [isOpen, setIsOpen] = useState(false)
 

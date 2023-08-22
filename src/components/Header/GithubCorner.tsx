@@ -35,7 +35,7 @@ animation: octocat-wave 560ms ease-in-out;
 				}}
 			/>
 			<a
-				href="https://github.com/meemproject/epm/"
+				href="https://github.com/kengoldfarb/epm-web/"
 				className="github-corner"
 				aria-label="View source on GitHub"
 				target="_blank"

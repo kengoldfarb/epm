@@ -22,8 +22,6 @@ import {
 	upgrade,
 	diamondABI
 } from '@meemproject/meem-contracts'
-import { useMeemApollo, useWallet } from '@meemproject/react'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -38,13 +36,17 @@ import {
 	FaceIdError,
 	Pencil
 } from 'tabler-icons-react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
 import {
 	Bundles,
 	ContractInstances,
 	SubGetContractsByAddressesSubscription,
 	WalletContractInstances
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import { SUB_GET_CONTRACTS_BY_ADDRESS } from '../../graphql/contracts'
+import { makeFetcher } from '../../lib/fetcher'
 import { downloadFile, formatFilename } from '../../lib/utils'
 import { Page } from '../../styles/Page'
 import { Address } from '../Atoms/Address'
@@ -79,7 +81,7 @@ const useStyles = createStyles(_theme => ({
 }))
 
 export const ManageDiamondContainer: React.FC = () => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const router = useRouter()
 	const { classes } = useStyles()
 
@@ -114,7 +116,7 @@ export const ManageDiamondContainer: React.FC = () => {
 	const [facets, setFacets] = useState<
 		{ selectors: string[]; target: string }[]
 	>([])
-	const { web3Provider, signer, chainId, setChain, accounts } = useWallet()
+	const { web3Provider, signer, chainId, setChain, accounts } = useAuth()
 
 	const { loading: isLoading, data } =
 		useSubscription<SubGetContractsByAddressesSubscription>(
@@ -271,17 +273,17 @@ export const ManageDiamondContainer: React.FC = () => {
 				return
 			}
 			const genTypes = makeFetcher<
-				MeemAPI.v1.GenerateTypes.IQueryParams,
-				MeemAPI.v1.GenerateTypes.IRequestBody,
-				MeemAPI.v1.GenerateTypes.IResponseBody
+				API.v1.GenerateTypes.IQueryParams,
+				API.v1.GenerateTypes.IRequestBody,
+				API.v1.GenerateTypes.IResponseBody
 			>({
-				method: MeemAPI.v1.GenerateTypes.method
+				method: API.v1.GenerateTypes.method
 			})
 
 			const fileName = proxyContract?.Contract?.name ?? 'MyContract'
 
 			const { types } = await genTypes(
-				MeemAPI.v1.GenerateTypes.path(),
+				API.v1.GenerateTypes.path(),
 				undefined,
 				{
 					abi,

@@ -1,7 +1,7 @@
 import { Select } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form/lib/use-form'
-import { chains } from '@meemproject/react'
 import React from 'react'
+import { chains } from '../../lib/chains'
 
 export interface IProps {
 	onChange?: (chainId: number) => void

@@ -9,15 +9,16 @@ import {
 	Skeleton
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useMeemApollo, useWallet } from '@meemproject/react'
-import { MeemAPI } from '@meemproject/sdk'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
 import {
 	Contracts,
 	SubGetContractsByIdSubscription,
 	SubSearchContractsSubscription
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import {
 	SUB_GET_CONTRACTS_BY_ID,
 	SUB_SEARCH_CONTRACTS
@@ -27,10 +28,10 @@ import { ContractCard } from '../Atoms/ContractCard'
 import { DeployContract } from './DeployContract'
 
 export const ContractsContainer: React.FC = () => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedContract, setSelectedContract] = useState<Contracts>()
-	const { chainId } = useWallet()
+	const { chainId } = useAuth()
 	const router = useRouter()
 
 	const form = useForm({
@@ -89,15 +90,15 @@ export const ContractsContainer: React.FC = () => {
 					placeholder="Pick one"
 					data={[
 						{
-							value: MeemAPI.ContractType.Regular,
+							value: API.ContractType.Regular,
 							label: 'Regular Contract'
 						},
 						{
-							value: MeemAPI.ContractType.DiamondProxy,
+							value: API.ContractType.DiamondProxy,
 							label: 'Diamond Proxy (EIP-2535)'
 						},
 						{
-							value: MeemAPI.ContractType.DiamondFacet,
+							value: API.ContractType.DiamondFacet,
 							label: 'Diamond Facet (EIP-2535)'
 						}
 					]}

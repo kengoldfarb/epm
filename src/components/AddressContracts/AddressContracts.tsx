@@ -11,13 +11,15 @@ import {
 	Skeleton
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useMeemApollo, useWallet } from '@meemproject/react'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import { ethers } from 'ethers'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { SubGetMyContractsSubscription } from '../../../generated/graphql'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
+import { SubGetMyContractsSubscription } from '../../generated/graphql'
 import { SUB_GET_MY_CONTRACTS } from '../../graphql/contracts'
+import { makeFetcher } from '../../lib/fetcher'
 import { ChainSelect } from '../Atoms/ChainSelect'
 import { WalletContractCard } from '../Atoms/WalletContractCard'
 
@@ -26,8 +28,8 @@ export interface IProps {
 }
 
 export const AddressContracts: React.FC<IProps> = ({ address }) => {
-	const { chainId } = useWallet()
-	const { anonClient } = useMeemApollo()
+	const { chainId } = useAuth()
+	const { anonClient } = useCustomApollo()
 	const [isOpen, setIsOpen] = useState(false)
 	const [isChainSet, setIsChainSet] = useState(false)
 
@@ -110,14 +112,14 @@ export const AddressContracts: React.FC<IProps> = ({ address }) => {
 					onSubmit={form.onSubmit(async values => {
 						try {
 							const trackContract = makeFetcher<
-								MeemAPI.v1.TrackContractInstance.IQueryParams,
-								MeemAPI.v1.TrackContractInstance.IRequestBody,
-								MeemAPI.v1.TrackContractInstance.IResponseBody
+								API.v1.TrackContractInstance.IQueryParams,
+								API.v1.TrackContractInstance.IRequestBody,
+								API.v1.TrackContractInstance.IResponseBody
 							>({
-								method: MeemAPI.v1.TrackContractInstance.method
+								method: API.v1.TrackContractInstance.method
 							})
 							await trackContract(
-								MeemAPI.v1.TrackContractInstance.path(),
+								API.v1.TrackContractInstance.path(),
 								undefined,
 								{
 									...values,

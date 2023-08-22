@@ -1,12 +1,9 @@
 import { useSubscription } from '@apollo/client'
 import { TextInput, Space, Skeleton, Grid, createStyles } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useMeemApollo } from '@meemproject/react'
 import React from 'react'
-import {
-	Bundles,
-	SubSearchBundlesSubscription
-} from '../../../generated/graphql'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { Bundles, SubSearchBundlesSubscription } from '../../generated/graphql'
 import { SUB_SEARCH_BUNDLES } from '../../graphql/contracts'
 import { BundleCard } from '../Atoms/BundleCard'
 
@@ -21,7 +18,7 @@ export interface IProps {
 }
 
 export const FindBundle: React.FC<IProps> = ({ onSelect, ctaText }) => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const { classes } = useStyles()
 	const form = useForm({
 		initialValues: {

@@ -1,7 +1,7 @@
 import { Text, Button, Card, Accordion, Title, Space } from '@mantine/core'
 import Link from 'next/link'
 import React from 'react'
-import { Bundles } from '../../../generated/graphql'
+import { Bundles } from '../../generated/graphql'
 import { Address } from './Address'
 import { ContractCard } from './ContractCard'
 

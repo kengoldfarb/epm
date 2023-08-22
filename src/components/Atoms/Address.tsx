@@ -1,10 +1,10 @@
 import { createStyles, Space, Text, Title, Tooltip } from '@mantine/core'
 import { useClipboard } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
-import { chains } from '@meemproject/react'
 import Link from 'next/link'
 import React from 'react'
 import { ClipboardText, ExternalLink } from 'tabler-icons-react'
+import { chains } from '../../lib/chains'
 import { quickTruncate } from '../../utils/truncated_wallet'
 import { IconButton } from './IconButton'
 

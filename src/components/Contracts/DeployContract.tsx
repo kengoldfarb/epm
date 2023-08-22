@@ -10,11 +10,13 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { useWallet, chains } from '@meemproject/react'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import { ethers } from 'ethers'
 import React, { useEffect, useState } from 'react'
-import { Contracts } from '../../../generated/graphql'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
+import { Contracts } from '../../generated/graphql'
+import { chains } from '../../lib/chains'
+import { makeFetcher } from '../../lib/fetcher'
 
 export interface IProps {
 	contract?: Contracts
@@ -31,7 +33,7 @@ export const DeployContract: React.FC<IProps> = ({
 	title,
 	onClose
 }) => {
-	const { signer, chainId } = useWallet()
+	const { signer, chainId } = useAuth()
 	const [isLoading, setIsLoading] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -100,14 +102,14 @@ export const DeployContract: React.FC<IProps> = ({
 			await tx.deployed()
 
 			const trackContract = makeFetcher<
-				MeemAPI.v1.TrackContractInstance.IQueryParams,
-				MeemAPI.v1.TrackContractInstance.IRequestBody,
-				MeemAPI.v1.TrackContractInstance.IResponseBody
+				API.v1.TrackContractInstance.IQueryParams,
+				API.v1.TrackContractInstance.IRequestBody,
+				API.v1.TrackContractInstance.IResponseBody
 			>({
-				method: MeemAPI.v1.TrackContractInstance.method
+				method: API.v1.TrackContractInstance.method
 			})
 			await trackContract(
-				MeemAPI.v1.TrackContractInstance.path(),
+				API.v1.TrackContractInstance.path(),
 				undefined,
 				{
 					address: tx.address,

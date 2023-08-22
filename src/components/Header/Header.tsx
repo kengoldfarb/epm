@@ -5,14 +5,13 @@ import {
 	Menu,
 	UnstyledButton,
 	Group,
-	Avatar,
-	Divider
+	Avatar
 } from '@mantine/core'
-import { useAuth } from '@meemproject/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { Logout, ChevronDown, Dots, Wallet } from 'tabler-icons-react'
+import { Logout, ChevronDown, Dots } from 'tabler-icons-react'
+import { useAuth } from '../../contexts/AuthContext'
 import { quickTruncate } from '../../utils/truncated_wallet'
 import { ChainSelect } from '../Atoms/ChainSelect'
 import { Logo } from '../Atoms/Logo'
@@ -222,22 +221,6 @@ export const HeaderMenu: React.FC = () => {
 								</UnstyledButton>
 							}
 						>
-							{wallet.walletType === 'magic' && (
-								<Menu.Item
-									className={classes.menuItem}
-									onClick={async () => {
-										try {
-											wallet.magic?.wallet.showUI()
-										} catch (e) {
-											// eslint-disable-next-line no-console
-											console.log(e)
-										}
-									}}
-									icon={<Wallet size={14} />}
-								>
-									Wallet
-								</Menu.Item>
-							)}
 							<Menu.Item
 								className={classes.menuItem}
 								onClick={async () => {
@@ -272,7 +255,11 @@ export const HeaderMenu: React.FC = () => {
 							</UnstyledButton>
 						}
 					>
-						<Link href={`/tracked/${wallet.accounts[0]}`}>
+						<Link
+							href={`/tracked/${
+								wallet.accounts && wallet.accounts[0]
+							}`}
+						>
 							<Menu.Item className={classes.menuItem}>
 								<a>My Contracts</a>
 							</Menu.Item>
@@ -302,18 +289,6 @@ export const HeaderMenu: React.FC = () => {
 								<a>Create Bundle</a>
 							</Menu.Item>
 						</Link>
-						<Divider />
-						<Menu.Item
-							onClick={() =>
-								window.open('https://meem.wtf', '_blank')
-							}
-							className={cx(classes.menuItem)}
-						>
-							From{' '}
-							<span style={{ textDecoration: 'underline' }}>
-								Meem
-							</span>
-						</Menu.Item>
 					</Menu>
 				</div>
 			</div>

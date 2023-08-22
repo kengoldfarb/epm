@@ -11,19 +11,21 @@ import {
 	Loader
 } from '@mantine/core'
 import { IFacetVersion, upgrade } from '@meemproject/meem-contracts'
-import { chains, useMeemApollo, useWallet } from '@meemproject/react'
-import { MeemAPI } from '@meemproject/sdk'
 import { ethers } from 'ethers'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { Check, CircleX } from 'tabler-icons-react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
 import {
 	Contracts,
 	SearchContractsQuery,
 	SubGetBundleByIdSubscription
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import { SUB_GET_BUNDLE_BY_ID } from '../../graphql/contracts'
+import { chains } from '../../lib/chains'
 import { ArrayElement } from '../../lib/utils'
 import { Address } from '../Atoms/Address'
 import { ContractCard } from '../Atoms/ContractCard'
@@ -35,9 +37,9 @@ export interface IProps {
 }
 
 export const DeployBundle: React.FC<IProps> = ({ bundleId }) => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const router = useRouter()
-	const { signer, chainId } = useWallet()
+	const { signer, chainId } = useAuth()
 	const [isLoading, setIsLoading] = useState(false)
 	const [isInitialized, setIsInitialized] = useState(false)
 	const [deployedProxy, setDeployedProxy] = useState<ethers.Contract>()
@@ -286,7 +288,7 @@ export const DeployBundle: React.FC<IProps> = ({ bundleId }) => {
 				size="xl"
 			>
 				<FindContract
-					contractType={MeemAPI.ContractType.DiamondProxy}
+					contractType={API.ContractType.DiamondProxy}
 					onClick={contract => {
 						setSelectedContract(contract)
 						setIsOpen(false)

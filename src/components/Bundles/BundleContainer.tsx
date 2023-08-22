@@ -12,16 +12,18 @@ import {
 } from '@mantine/core'
 import { formList, useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { useMeemApollo, useWallet } from '@meemproject/react'
-import { MeemAPI, makeFetcher } from '@meemproject/sdk'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { Download, Rocket } from 'tabler-icons-react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { useAuth } from '../../contexts/AuthContext'
+import { API } from '../../generated/api.generated'
 import {
 	Contracts,
 	SubGetBundleByIdSubscription
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import { SUB_GET_BUNDLE_BY_ID } from '../../graphql/contracts'
+import { makeFetcher } from '../../lib/fetcher'
 import { downloadFile, formatFilename } from '../../lib/utils'
 import { Page } from '../../styles/Page'
 import { DemoCode } from '../Atoms/DemoCode'
@@ -38,10 +40,10 @@ const useStyles = createStyles(_theme => ({
 
 export const BundleContainer: React.FC = () => {
 	const router = useRouter()
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const { classes } = useStyles()
 	const bundleId = router.query.bundleId as string
-	const { chainId, accounts } = useWallet()
+	const { chainId, accounts } = useAuth()
 
 	const form = useForm({
 		initialValues: {
@@ -79,15 +81,15 @@ export const BundleContainer: React.FC = () => {
 			}
 
 			const updateBundle = makeFetcher<
-				MeemAPI.v1.UpdateBundle.IQueryParams,
-				MeemAPI.v1.UpdateBundle.IRequestBody,
-				MeemAPI.v1.UpdateBundle.IResponseBody
+				API.v1.UpdateBundle.IQueryParams,
+				API.v1.UpdateBundle.IRequestBody,
+				API.v1.UpdateBundle.IResponseBody
 			>({
-				method: MeemAPI.v1.UpdateBundle.method
+				method: API.v1.UpdateBundle.method
 			})
 
 			await updateBundle(
-				MeemAPI.v1.UpdateBundle.path({
+				API.v1.UpdateBundle.path({
 					bundleId: router.query.bundleId as string
 				}),
 				undefined,
@@ -194,11 +196,11 @@ export const BundleContainer: React.FC = () => {
 						leftIcon={<Download />}
 						onClick={async () => {
 							const genTypes = makeFetcher<
-								MeemAPI.v1.GenerateTypes.IQueryParams,
-								MeemAPI.v1.GenerateTypes.IRequestBody,
-								MeemAPI.v1.GenerateTypes.IResponseBody
+								API.v1.GenerateTypes.IQueryParams,
+								API.v1.GenerateTypes.IRequestBody,
+								API.v1.GenerateTypes.IResponseBody
 							>({
-								method: MeemAPI.v1.GenerateTypes.method
+								method: API.v1.GenerateTypes.method
 							})
 
 							const fileName =
@@ -206,7 +208,7 @@ export const BundleContainer: React.FC = () => {
 								'MyContract'
 
 							const { types } = await genTypes(
-								MeemAPI.v1.GenerateTypes.path(),
+								API.v1.GenerateTypes.path(),
 								undefined,
 								{
 									bundleId,

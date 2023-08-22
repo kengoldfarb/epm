@@ -1,6 +1,6 @@
 import { Text, Space, Title } from '@mantine/core'
-import { useWallet } from '@meemproject/react'
 import React from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 import { Page } from '../../styles/Page'
 import { AddressContracts } from './AddressContracts'
 
@@ -11,7 +11,7 @@ export interface IProps {
 }
 
 export const MyContractsContainer: React.FC<IProps> = () => {
-	const { accounts } = useWallet()
+	const { accounts } = useAuth()
 
 	return (
 		<Page>

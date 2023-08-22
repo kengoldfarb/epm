@@ -1,5 +1,4 @@
 import { Text, Space, Grid, Title, Card, createStyles } from '@mantine/core'
-import { useWallet } from '@meemproject/react'
 import Link from 'next/link'
 import React from 'react'
 import {
@@ -10,6 +9,7 @@ import {
 	Rocket,
 	Upload
 } from 'tabler-icons-react'
+import { useAuth } from '../../contexts/AuthContext'
 import { Page } from '../../styles/Page'
 
 const useStyles = createStyles(_theme => ({
@@ -30,7 +30,7 @@ const useStyles = createStyles(_theme => ({
 export const HomeContainer: React.FC = () => {
 	const { classes } = useStyles()
 
-	const { accounts } = useWallet()
+	const { accounts } = useAuth()
 
 	return (
 		<Page>

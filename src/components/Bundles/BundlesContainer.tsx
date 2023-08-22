@@ -1,7 +1,7 @@
 import { Space, Modal, Title } from '@mantine/core'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Bundles } from '../../../generated/graphql'
+import { Bundles } from '../../generated/graphql'
 import { Page } from '../../styles/Page'
 import { DeployBundle } from './DeployBundle'
 import { FindBundle } from './FindBundle'

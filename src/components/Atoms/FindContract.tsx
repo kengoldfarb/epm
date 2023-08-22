@@ -1,10 +1,10 @@
 import { useSubscription } from '@apollo/client'
 import { Button, TextInput, Space, Grid, Skeleton } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useMeemApollo } from '@meemproject/react'
-import { MeemAPI } from '@meemproject/sdk'
 import React from 'react'
-import { SubSearchContractsSubscription } from '../../../generated/graphql'
+import { useCustomApollo } from '../../contexts/ApolloContext'
+import { API } from '../../generated/api.generated'
+import { SubSearchContractsSubscription } from '../../generated/graphql'
 import { SUB_SEARCH_CONTRACTS } from '../../graphql/contracts'
 import { ArrayElement } from '../../lib/utils'
 import { ContractCard } from './ContractCard'
@@ -13,7 +13,7 @@ export interface IProps {
 	onClick: (
 		contract: ArrayElement<SubSearchContractsSubscription['Contracts']>
 	) => void
-	contractType?: MeemAPI.ContractType
+	contractType?: API.ContractType
 	disabledContractIds?: string[]
 	children?: React.ReactNode
 }
@@ -24,7 +24,7 @@ export const FindContract: React.FC<IProps> = ({
 	disabledContractIds,
 	children
 }) => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 
 	const form = useForm({
 		initialValues: {
@@ -36,7 +36,7 @@ export const FindContract: React.FC<IProps> = ({
 	const { loading: isLoading, data: facets } =
 		useSubscription<SubSearchContractsSubscription>(SUB_SEARCH_CONTRACTS, {
 			variables: {
-				contractType: contractType ?? MeemAPI.ContractType.DiamondFacet,
+				contractType: contractType ?? API.ContractType.DiamondFacet,
 				searchTerm: `%${form.values.searchTerm}%`
 			},
 			client: anonClient

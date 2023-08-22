@@ -13,7 +13,7 @@ import { showNotification } from '@mantine/notifications'
 import { ethers } from 'ethers'
 import React from 'react'
 import { CircleX } from 'tabler-icons-react'
-import { ContractInstances, Contracts } from '../../../generated/graphql'
+import { ContractInstances, Contracts } from '../../generated/graphql'
 import { ContractCard } from './ContractCard'
 import { IconButton } from './IconButton'
 

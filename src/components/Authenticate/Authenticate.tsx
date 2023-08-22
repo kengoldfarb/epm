@@ -1,15 +1,17 @@
 import log from '@kengoldfarb/log'
 import { Text, Button, Space, Container, Loader, Center } from '@mantine/core'
-import { LoginForm, useAuth, useSDK } from '@meemproject/react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
+import { useApp } from '../../contexts/AppContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { showErrorNotification } from '../../utils/notifications'
+import { LoginForm } from '../Login/LoginForm'
 
 const MAuthenticate: React.FC = () => {
 	const wallet = useAuth()
 	const router = useRouter()
-	const { login } = useSDK()
+	const { login } = useApp()
 
 	const [isLoading, setIsLoading] = useState(false)
 	const sign = useCallback(async () => {
@@ -40,7 +42,7 @@ const MAuthenticate: React.FC = () => {
 			setIsLoading(false)
 			showErrorNotification(
 				'Oops!',
-				'Unable to sign into Meem with your wallet. Contact us using the top-right link on this page.'
+				'Unable to sign in with your wallet. Contact us using the top-right link on this page.'
 			)
 			log.crit(e)
 		}
@@ -51,7 +53,7 @@ const MAuthenticate: React.FC = () => {
 			<Container>
 				<div>
 					<Space h={80} />
-					<Text>{`Sign in with Meem`}</Text>
+					<Text>{`Sign in`}</Text>
 					<Space h={16} />
 
 					<div>

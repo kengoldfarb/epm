@@ -11,15 +11,16 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
-import { makeFetcher, MeemAPI } from '@meemproject/sdk'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Pencil, Trash } from 'tabler-icons-react'
+import { API } from '../../generated/api.generated'
 import {
 	GetMyContractsQuery,
 	SearchContractsQuery,
 	WalletContractInstances
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
+import { makeFetcher } from '../../lib/fetcher'
 import { ArrayElement } from '../../lib/utils'
 import { Address } from './Address'
 import { ContractCard } from './ContractCard'
@@ -66,14 +67,14 @@ export const WalletContractCard: React.FC<IProps> = ({
 	const handleUntrack = async () => {
 		try {
 			const unTrackContract = makeFetcher<
-				MeemAPI.v1.UntrackContractInstance.IQueryParams,
-				MeemAPI.v1.UntrackContractInstance.IRequestBody,
-				MeemAPI.v1.UntrackContractInstance.IResponseBody
+				API.v1.UntrackContractInstance.IQueryParams,
+				API.v1.UntrackContractInstance.IRequestBody,
+				API.v1.UntrackContractInstance.IResponseBody
 			>({
-				method: MeemAPI.v1.UntrackContractInstance.method
+				method: API.v1.UntrackContractInstance.method
 			})
 			await unTrackContract(
-				MeemAPI.v1.UntrackContractInstance.path({
+				API.v1.UntrackContractInstance.path({
 					contractInstanceId: walletContract?.ContractInstance?.id
 				})
 			)

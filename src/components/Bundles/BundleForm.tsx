@@ -11,13 +11,13 @@ import {
 } from '@mantine/core'
 import { UseFormReturnType } from '@mantine/form/lib/use-form'
 import { showNotification } from '@mantine/notifications'
-import { useMeemApollo } from '@meemproject/react'
 import React, { useState } from 'react'
 import { CirclePlus } from 'tabler-icons-react'
+import { useCustomApollo } from '../../contexts/ApolloContext'
 import {
 	Contracts,
 	SubGetContractsByIdSubscription
-} from '../../../generated/graphql'
+} from '../../generated/graphql'
 import { SUB_GET_CONTRACTS_BY_ID } from '../../graphql/contracts'
 import { FacetList } from '../Atoms/FacetList'
 import {
@@ -46,7 +46,7 @@ export const BundleForm: React.FC<IProps> = ({
 	isLoading: isParentLoading,
 	isDisabled
 }) => {
-	const { anonClient } = useMeemApollo()
+	const { anonClient } = useCustomApollo()
 	const { classes } = useStyles()
 	const [isOpen, setIsOpen] = useState(false)
 

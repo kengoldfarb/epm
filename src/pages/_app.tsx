@@ -1,12 +1,14 @@
 import log, { LogLevel } from '@kengoldfarb/log'
 import { Global, MantineProvider } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
-import { MeemProvider } from '@meemproject/react'
 import type { AppProps } from 'next/app'
 import React from 'react'
 import ReactGA from 'react-ga4'
 import '@fontsource/inter'
 import { App } from '../components/App'
+import { CustomApolloProvider } from '../contexts/ApolloContext'
+import { AppProvider } from '../contexts/AppContext'
+import { AuthProvider } from '../contexts/AuthContext'
 
 function MyApp(props: AppProps) {
 	const { Component, pageProps } = props
@@ -83,28 +85,27 @@ function MyApp(props: AppProps) {
 				primaryColor: 'brand'
 			}}
 		>
-			<MeemProvider
-				magicApiKey={process.env.NEXT_PUBLIC_MAGIC_API_KEY ?? ''}
-				sdk={{
-					isGunEnabled: false
-				}}
-			>
-				<NotificationsProvider>
-					<Global
-						styles={theme => ({
-							a: {
-								color: theme.colors.dark,
-								'&:hover': {
-									opacity: 0.6
-								}
-							}
-						})}
-					/>
-					<App>
-						<Component {...pageProps} />
-					</App>
-				</NotificationsProvider>
-			</MeemProvider>
+			<AuthProvider>
+				<AppProvider>
+					<CustomApolloProvider>
+						<NotificationsProvider>
+							<Global
+								styles={theme => ({
+									a: {
+										color: theme.colors.dark,
+										'&:hover': {
+											opacity: 0.6
+										}
+									}
+								})}
+							/>
+							<App>
+								<Component {...pageProps} />
+							</App>
+						</NotificationsProvider>
+					</CustomApolloProvider>
+				</AppProvider>
+			</AuthProvider>
 		</MantineProvider>
 	)
 }

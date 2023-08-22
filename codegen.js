@@ -1,7 +1,7 @@
 module.exports = {
     schema: [
         {
-            'https://dev-gql.meem.wtf/v1/graphql': {
+            'https://charmed-mammoth-85.hasura.app/v1/graphql': {
                 headers: {},
             },
         },
@@ -9,7 +9,7 @@ module.exports = {
     documents: ['./src/**/*.tsx', './src/**/*.ts'],
     overwrite: true,
     generates: {
-        './generated/graphql.tsx': {
+        './src/generated/graphql.tsx': {
             plugins: [
                 'typescript',
                 'typescript-operations',
@@ -22,7 +22,7 @@ module.exports = {
                 withComponent: false,
             },
         },
-        './generated/graphql.schema.json': {
+        './src/generated/graphql.schema.json': {
             plugins: ['introspection'],
         },
     },
