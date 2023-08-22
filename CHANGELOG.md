@@ -1,3 +1,24 @@
+# 1.0.0 (2023-08-22)
+
+
+### Bug Fixes
+
+* add bundle facet not fetching contract ([880bde6](https://github.com/kengoldfarb/epm/commit/880bde6))
+* save bundle can be clicked multiple times ([4368764](https://github.com/kengoldfarb/epm/commit/4368764))
+* specify chainId ([c3d4074](https://github.com/kengoldfarb/epm/commit/c3d4074))
+* upgrade packages - fix not passing overrides to upgrade() ([e51ad20](https://github.com/kengoldfarb/epm/commit/e51ad20))
+
+
+### Features
+
+* add GH ribbon ([e81626f](https://github.com/kengoldfarb/epm/commit/e81626f))
+* download abi from bundle page ([87f50d9](https://github.com/kengoldfarb/epm/commit/87f50d9))
+* show magic wallet ([8e19ec8](https://github.com/kengoldfarb/epm/commit/8e19ec8))
+* switch to new epm api ([046524d](https://github.com/kengoldfarb/epm/commit/046524d))
+* untrack contract ([6a5cca3](https://github.com/kengoldfarb/epm/commit/6a5cca3))
+* update sdk / login ([9f5a864](https://github.com/kengoldfarb/epm/commit/9f5a864))
+* upgrade to latest SDK ([79413f8](https://github.com/kengoldfarb/epm/commit/79413f8))
+
 ## [1.0.5](https://github.com/meemproject/epm/compare/v1.0.4...v1.0.5) (2022-10-07)
 
 
